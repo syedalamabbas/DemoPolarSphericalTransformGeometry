@@ -1,0 +1,16 @@
+{
+	"FileVersion": 3,
+	"EngineAssociation": "{86AFED81-4CDD-1336-7F0A-90BF81C37119}",
+	"Category": "",
+	"Description": "",
+	"Modules": [
+		{
+			"Name": "CppBeamEmitter",
+			"Type": "Runtime",
+			"LoadingPhase": "Default",
+			"AdditionalDependencies": [
+				"Engine"
+			]
+		}
+	]
+}
