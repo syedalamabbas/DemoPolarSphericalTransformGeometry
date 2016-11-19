@@ -36,7 +36,7 @@ FVector ABeamEmitterBaseActor::GetOriginInVolume()
 
 void ABeamEmitterBaseActor::CreateDesiredBeamPattern()
 {
-	int32 NumberOfBeams = 3;
+	int32 NumberOfBeams = 5;
 	int32 BeamLength = 400;
 	int32 ZOffset = 10;
 
