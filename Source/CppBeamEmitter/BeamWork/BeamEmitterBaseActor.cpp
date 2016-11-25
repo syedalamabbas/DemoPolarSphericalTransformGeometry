@@ -36,36 +36,46 @@ FVector ABeamEmitterBaseActor::GetOriginInVolume()
 
 void ABeamEmitterBaseActor::CreateDesiredBeamPattern()
 {
-	int32 NumberOfBeams = 5;
-	int32 BeamLength = 400;
-	int32 ZOffset = 10;
+	int32 NumberOfBeams = 2;
+	int32 BeamLength = 200;
+	int32 ZOffset = 20;
 
 	FVector BoxLocation = GetOriginInVolume();
-	FVector TargetPoint;
+	FVector BeamSourcePoint;
 
-
+	UParticleSystem* TemplateParticleSystem = BeamParticleSystem->Template;
+	
 	for (int32 i = 0; i < NumberOfBeams; i++)  // Along X Axis
 	{
-		TargetPoint.X = BoxLocation.X;                 // Constant
-		TargetPoint.Y = BoxLocation.Y;                 // Constant
-		TargetPoint.Z = BoxLocation.Z + i*ZOffset;   // Moving in Straight Line
+		BeamSourcePoint.X = BoxLocation.X;                 // Constant
+		BeamSourcePoint.Y = BoxLocation.Y;                 // Constant
+		BeamSourcePoint.Z = BoxLocation.Z + i*ZOffset;   // Moving in Straight Line
 
 		if (BeamParticleSystem)
 		{
+			// Prepare
+			//UParticleSystemComponent* CurrentTemp = CreateDefaultSubobject<UParticleSystemComponent>(TEXT("TempParticleSystem"));
+			//CurrentTemp->SetTemplate(TemplateParticleSystem);
+			UParticleSystemComponent* CurrentTemp = BeamParticleSystem;
+			
+			// On Fly altering the source and target points
+			CurrentTemp->SetBeamSourcePoint(0, BeamSourcePoint, 0);
+			FVector BeamTargetPoint = FVector(BeamSourcePoint);
+			BeamTargetPoint.X = BeamTargetPoint.X + BeamLength;  // Beam length in X direction 
+			CurrentTemp->SetBeamTargetPoint(0, BeamTargetPoint, 0);
+
+			// Spawning
 			UParticleSystemComponent* CurrentEmitter = UGameplayStatics::SpawnEmitterAtLocation(
 				GetWorld(),
-				BeamParticleSystem->Template,
-				TargetPoint,
+				CurrentTemp->Template,
+				BeamSourcePoint,
 				FRotator::ZeroRotator,
 				true);
 
-			CurrentEmitter->InitializeSystem();
-			CurrentEmitter->SetBeamSourcePoint(0, TargetPoint, 0);
-
-			FVector NewPoint = FVector(TargetPoint);
-			NewPoint.X = NewPoint.X + BeamLength;  // Beam length in X direction 
-			CurrentEmitter->SetBeamTargetPoint(0, NewPoint, 0);
-			CurrentEmitter->ActivateSystem();
+			// Destroy
+			//CurrentTemp->DestroyComponent();
+			
+			
 		}
 	}
 
