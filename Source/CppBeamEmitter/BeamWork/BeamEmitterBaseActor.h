@@ -24,6 +24,8 @@ public:
 	UPROPERTY(EditAnywhere, Category = "Spawning")
 		UParticleSystemComponent* BeamParticleSystem;
 
+	/*UPROPERTY(EditAnywhere, Category = "Spawning")
+		TSubclassOf<ADummyActor> WhatToSpawn;*/
 
 	FORCEINLINE UBoxComponent* GetWhereToSpawn() const { return WhereToSpawn; }
 

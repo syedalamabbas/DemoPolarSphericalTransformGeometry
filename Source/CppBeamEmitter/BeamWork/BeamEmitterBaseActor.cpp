@@ -36,48 +36,66 @@ FVector ABeamEmitterBaseActor::GetOriginInVolume()
 
 void ABeamEmitterBaseActor::CreateDesiredBeamPattern()
 {
-	int32 NumberOfBeams = 2;
-	int32 BeamLength = 200;
-	int32 ZOffset = 20;
+	int32 NumberOfBeams = 100;
+	int32 BeamLength = 500;
+	int32 ZOffset = 5;
 
 	FVector BoxLocation = GetOriginInVolume();
 	FVector BeamSourcePoint;
 
 	UParticleSystem* TemplateParticleSystem = BeamParticleSystem->Template;
 	
-	for (int32 i = 0; i < NumberOfBeams; i++)  // Along X Axis
+	for (int32 i = 0; i <= NumberOfBeams; i++)  // Along X Axis
 	{
 		BeamSourcePoint.X = BoxLocation.X;                 // Constant
 		BeamSourcePoint.Y = BoxLocation.Y;                 // Constant
-		BeamSourcePoint.Z = BoxLocation.Z + i*ZOffset;   // Moving in Straight Line
+		BeamSourcePoint.Z = BoxLocation.Z + i*ZOffset;     // Moving in Straight Line
 
 		if (BeamParticleSystem)
 		{
-			// Prepare
-			//UParticleSystemComponent* CurrentTemp = CreateDefaultSubobject<UParticleSystemComponent>(TEXT("TempParticleSystem"));
-			//CurrentTemp->SetTemplate(TemplateParticleSystem);
-			UParticleSystemComponent* CurrentTemp = BeamParticleSystem;
-			
-			// On Fly altering the source and target points
-			CurrentTemp->SetBeamSourcePoint(0, BeamSourcePoint, 0);
 			FVector BeamTargetPoint = FVector(BeamSourcePoint);
 			BeamTargetPoint.X = BeamTargetPoint.X + BeamLength;  // Beam length in X direction 
-			CurrentTemp->SetBeamTargetPoint(0, BeamTargetPoint, 0);
+
+			// Prepare On Fly altering the source and target points -- This thing is doing nothing
+			//CurrentTemp->SetBeamSourcePoint(0, BeamSourcePoint, 0);
+			//CurrentTemp->SetBeamTargetPoint(0, BeamTargetPoint, 0);
+			//CurrentTemp->SetBeamEndPoint(i, BeamTargetPoint);
 
 			// Spawning
 			UParticleSystemComponent* CurrentEmitter = UGameplayStatics::SpawnEmitterAtLocation(
 				GetWorld(),
-				CurrentTemp->Template,
+				BeamParticleSystem->Template,
 				BeamSourcePoint,
 				FRotator::ZeroRotator,
 				true);
 
-			// Destroy
-			//CurrentTemp->DestroyComponent();
-			
-			
+			CurrentEmitter->SetBeamSourcePoint(0, BeamSourcePoint, 0);
+			CurrentEmitter->SetBeamTargetPoint(0, BeamTargetPoint, 0);
 		}
 	}
 
+	for (int32 i = 0; i <= NumberOfBeams; i++)  // Along X Axis
+	{
+		BeamSourcePoint.X = BoxLocation.X + i*ZOffset;                 // Constant
+		BeamSourcePoint.Y = BoxLocation.Y;                 // Constant
+		BeamSourcePoint.Z = BoxLocation.Z ;     // Moving in Straight Line
+
+		if (BeamParticleSystem)
+		{
+			FVector BeamTargetPoint = FVector(BeamSourcePoint);
+			BeamTargetPoint.Z = BeamTargetPoint.Z + BeamLength;  // Beam length in X direction 
+
+			// Spawning
+			UParticleSystemComponent* CurrentEmitter = UGameplayStatics::SpawnEmitterAtLocation(
+				GetWorld(),
+				BeamParticleSystem->Template,
+				BeamSourcePoint,
+				FRotator::ZeroRotator,
+				true);
+
+			CurrentEmitter->SetBeamSourcePoint(0, BeamSourcePoint, 0);
+			CurrentEmitter->SetBeamTargetPoint(0, BeamTargetPoint, 0);
+		}
+	}
 }
 
