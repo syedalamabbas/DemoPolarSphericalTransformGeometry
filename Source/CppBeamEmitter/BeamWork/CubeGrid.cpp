@@ -18,7 +18,7 @@ ACubeGrid::ACubeGrid()
 	BeamParticleSystem->SetupAttachment(RootComponent);
 
 	// Loading some grid defaults
-	CubeGridSize = 90;
+	N = 9;
 	GridSpacing = 10;
 }
 
@@ -45,20 +45,22 @@ void ACubeGrid::ConstructGrid()
 	UParticleSystemComponent* CurrentEmitter = NULL;
 	FVector BeamTargetPoint;
 
-	int NumberOfBeams = CubeGridSize / GridSpacing;
-	for (int i = 0; i <= NumberOfBeams; i++)
+	int32 lower = -(N - 1) / 2;
+	int32 upper = (N - 1) / 2;
+
+	for (int i = lower; i <= upper; i++)
 	{
-		for (int j = 0; j <= NumberOfBeams; j++)
+		for (int j = lower; j <= upper; j++)
 		{
 			if (BeamParticleSystem)
 			{
 				// Length is X - axis
-				BeamSourcePoint.X = BoxLocation.X;                     // Constant
+				BeamSourcePoint.X = BoxLocation.X + lower*GridSpacing;                     // Constant
 				BeamSourcePoint.Y = BoxLocation.Y + j*GridSpacing;     // Moving in Straight Line
 				BeamSourcePoint.Z = BoxLocation.Z + i*GridSpacing;     // Moving in Straight Line
 
 				BeamTargetPoint = FVector(BeamSourcePoint);
-				BeamTargetPoint.X = BeamTargetPoint.X + CubeGridSize;  // Beam length in X direction 
+				BeamTargetPoint.X = BeamTargetPoint.X + (N-1)*GridSpacing;  // Beam length in X direction 
 
 				// Spawning
 				CurrentEmitter = UGameplayStatics::SpawnEmitterAtLocation(
@@ -73,12 +75,12 @@ void ACubeGrid::ConstructGrid()
 
 
 				// Length is Y - axis
-				BeamSourcePoint.Y = BoxLocation.Y;                     // Constant
+				BeamSourcePoint.Y = BoxLocation.Y + lower*GridSpacing;                      // Constant
 				BeamSourcePoint.X = BoxLocation.X + j*GridSpacing;     // Moving in Straight Line
 				BeamSourcePoint.Z = BoxLocation.Z + i*GridSpacing;     // Moving in Straight Line
 
 				BeamTargetPoint = FVector(BeamSourcePoint);
-				BeamTargetPoint.Y = BeamTargetPoint.Y + CubeGridSize;  // Beam length in Y direction 
+				BeamTargetPoint.Y = BeamTargetPoint.Y + (N - 1)*GridSpacing;  // Beam length in Y direction 
 
 				// Spawning
 				CurrentEmitter = UGameplayStatics::SpawnEmitterAtLocation(
@@ -93,12 +95,12 @@ void ACubeGrid::ConstructGrid()
 
 
 				// Length is Z - axis
-				BeamSourcePoint.Z = BoxLocation.Z;                     // Constant
+				BeamSourcePoint.Z = BoxLocation.Z + lower*GridSpacing;                     // Constant
 				BeamSourcePoint.X = BoxLocation.X + j*GridSpacing;     // Moving in Straight Line
 				BeamSourcePoint.Y = BoxLocation.Y + i*GridSpacing;     // Moving in Straight Line
 
 				BeamTargetPoint = FVector(BeamSourcePoint);
-				BeamTargetPoint.Z = BeamTargetPoint.Z + CubeGridSize;  // Beam length in Z direction 
+				BeamTargetPoint.Z = BeamTargetPoint.Z + (N - 1)*GridSpacing;  // Beam length in Z direction 
 
 				// Spawning
 				CurrentEmitter = UGameplayStatics::SpawnEmitterAtLocation(
@@ -117,11 +119,11 @@ void ACubeGrid::ConstructGrid()
 
 	FVector TargetMeshLocation = FVector(BoxLocation);
 
-	for (int i = 0; i <= NumberOfBeams; i++)
+	for (int i = lower; i <= upper; i++)
 	{
-		for (int j = 0; j <= NumberOfBeams; j++)
+		for (int j = lower; j <= upper; j++)
 		{
-			for (int k = 0; k <= NumberOfBeams; k++)
+			for (int k = lower; k <= upper; k++)
 			{
 				if (NULL != WhatToSpawn)
 				{

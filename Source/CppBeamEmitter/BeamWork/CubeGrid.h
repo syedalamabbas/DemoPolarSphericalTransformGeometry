@@ -35,8 +35,8 @@ public:
 	virtual void Tick(float DeltaTime) override;
 
 	// N x N x N are the dimensions of the grid
-	UPROPERTY(EditAnywhere, Category = "Spawning")
-		int CubeGridSize;  
+	UPROPERTY(EditAnywhere, Category = "Spawning") // Uniform radial spacing unit measure
+		int N;
 
 	// Uniform spacing unit measure
 	UPROPERTY(EditAnyWhere, Category = "Spawning")
