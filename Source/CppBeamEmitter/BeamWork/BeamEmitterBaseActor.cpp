@@ -1,7 +1,8 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
-#include "CppBeamEmitter.h"
 #include "BeamEmitterBaseActor.h"
+#include "CppBeamEmitter.h"
+
 
 // Sets default values
 ABeamEmitterBaseActor::ABeamEmitterBaseActor()
@@ -21,6 +22,11 @@ void ABeamEmitterBaseActor::BeginPlay()
 {
 	Super::BeginPlay();
 	CreateDesiredBeamPattern();
+}
+
+UBoxComponent* ABeamEmitterBaseActor::GetWhereToSpawn()
+{
+	return WhereToSpawn;
 }
 
 // Called every frame

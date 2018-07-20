@@ -20,7 +20,7 @@ protected:
 
 	// Where to Spawn is the location of origin of the grid
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Spawning", meta = (AllowPrivateAccess = "true"))
-		UBoxComponent* WhereToSpawn;            // This is the anchor
+		class UBoxComponent* WhereToSpawn;            // This is the anchor
 
 	// What to spawn
 	UPROPERTY(EditAnywhere, Category = "Spawning", meta = (AllowPrivateAccess = "true"))
@@ -28,7 +28,7 @@ protected:
 
 	// Beam particle to be used for the grid lines
 	UPROPERTY(EditAnywhere, Category = "Spawning", meta = (AllowPrivateAccess = "true"))
-		UParticleSystemComponent* BeamParticleSystem;
+		class UParticleSystemComponent* BeamParticleSystem;
 
 public:	
 	// Called every frame

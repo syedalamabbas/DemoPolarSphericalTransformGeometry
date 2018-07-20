@@ -1,7 +1,7 @@
 // Copyright 1998-2016 Epic Games, Inc. All Rights Reserved.
 
-#include "CppBeamEmitter.h"
 #include "CppBeamEmitterHUD.h"
+#include "CppBeamEmitter.h"
 #include "Engine/Canvas.h"
 #include "TextureResource.h"
 #include "CanvasItem.h"

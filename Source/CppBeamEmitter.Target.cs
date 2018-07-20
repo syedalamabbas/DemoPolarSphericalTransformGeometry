@@ -5,21 +5,11 @@ using System.Collections.Generic;
 
 public class CppBeamEmitterTarget : TargetRules
 {
-	public CppBeamEmitterTarget(TargetInfo Target)
+	public CppBeamEmitterTarget(TargetInfo Target) : base(Target)
 	{
 		Type = TargetType.Game;
+		ExtraModuleNames.AddRange( new string[] {"CppBeamEmitter"} );
 	}
 
-	//
-	// TargetRules interface.
-	//
-
-	public override void SetupBinaries(
-		TargetInfo Target,
-		ref List<UEBuildBinaryConfiguration> OutBuildBinaryConfigurations,
-		ref List<string> OutExtraModuleNames
-		)
-	{
-		OutExtraModuleNames.Add("CppBeamEmitter");
-	}
+	
 }

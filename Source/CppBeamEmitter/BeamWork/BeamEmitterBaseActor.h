@@ -22,12 +22,12 @@ public:
 	virtual void Tick( float DeltaSeconds ) override;
 
 	UPROPERTY(EditAnywhere, Category = "Spawning")
-		UParticleSystemComponent* BeamParticleSystem;
+		class UParticleSystemComponent* BeamParticleSystem;
 
 	/*UPROPERTY(EditAnywhere, Category = "Spawning")
 		TSubclassOf<ADummyActor> WhatToSpawn;*/
 
-	FORCEINLINE UBoxComponent* GetWhereToSpawn() const { return WhereToSpawn; }
+	class UBoxComponent* GetWhereToSpawn(); 
 
 	UFUNCTION(BlueprintPure, Category = "Spawning")
 		FVector GetOriginInVolume();

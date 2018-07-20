@@ -1,7 +1,7 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
-#include "CppBeamEmitter.h"
 #include "SinusoidalBeamActor.h"
+#include "CppBeamEmitter.h"
 
 // Sets default values
 ASinusoidalBeamActor::ASinusoidalBeamActor()
@@ -37,6 +37,13 @@ void ASinusoidalBeamActor::Tick( float DeltaTime )
 {
 	Super::Tick( DeltaTime );
 }
+
+
+UBoxComponent* ASinusoidalBeamActor::GetWhereToSpawn()
+{
+	return WhereToSpawn;
+}
+
 
 FVector ASinusoidalBeamActor::GetOriginInVolume()
 {

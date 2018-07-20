@@ -131,7 +131,7 @@ public:
 	/*UPROPERTY(EditAnywhere, Category = "Spawning")
 	TSubclassOf<ADummyActor> WhatToSpawn;*/
 
-	FORCEINLINE UBoxComponent* GetWhereToSpawn() const { return WhereToSpawn; }
+	class UBoxComponent* GetWhereToSpawn();
 
 	UFUNCTION(BlueprintPure, Category = "Spawning")
 		FVector GetOriginInVolume();

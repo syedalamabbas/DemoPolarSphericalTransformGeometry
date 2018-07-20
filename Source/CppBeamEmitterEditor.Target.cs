@@ -5,21 +5,9 @@ using System.Collections.Generic;
 
 public class CppBeamEmitterEditorTarget : TargetRules
 {
-	public CppBeamEmitterEditorTarget(TargetInfo Target)
+	public CppBeamEmitterEditorTarget(TargetInfo Target) : base(Target)
 	{
 		Type = TargetType.Editor;
-	}
-
-	//
-	// TargetRules interface.
-	//
-
-	public override void SetupBinaries(
-		TargetInfo Target,
-		ref List<UEBuildBinaryConfiguration> OutBuildBinaryConfigurations,
-		ref List<string> OutExtraModuleNames
-		)
-	{
-		OutExtraModuleNames.Add("CppBeamEmitter");
+		ExtraModuleNames.AddRange( new string[] { "CppBeamEmitter" } );
 	}
 }

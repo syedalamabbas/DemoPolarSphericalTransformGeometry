@@ -18,9 +18,7 @@ private:
 	TArray<FVector> DesiredNewPositions; // This is planar arrangement of spherical data at different radii
 
 	void SetDynamicallyColorOfActors(AActor* currentActor, int32 ActorIndex);
-
-	
-
+		
 public:	
 	// Sets default values for this actor's properties
 	ADynConcentricSpheresGrid();
@@ -31,12 +29,12 @@ protected:
 
 	// Where to Spawn is the location of origin of the grid
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Spawning", meta = (AllowPrivateAccess = "true"))
-		UBoxComponent* WhereToSpawn;            // This is the anchor
+		class UBoxComponent* WhereToSpawn;            // This is the anchor
 
 
 	// Where to Spawn is the location of origin of the grid
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Spawning", meta = (AllowPrivateAccess = "true"))
-		UBoxComponent* WhereToSpawnTransformed;            // This is the anchor for new arrangement
+		class UBoxComponent* WhereToSpawnTransformed;            // This is the anchor for new arrangement
 
 
 	// What to spawn
@@ -45,7 +43,7 @@ protected:
 
 	// Beam particle to be used for the grid lines
 	UPROPERTY(EditAnywhere, Category = "Spawning", meta = (AllowPrivateAccess = "true"))
-		UParticleSystemComponent* BeamParticleSystem;
+		class UParticleSystemComponent* BeamParticleSystem;
 
 public:	
 	// Called every frame
